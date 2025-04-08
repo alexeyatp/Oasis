@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanatorium "Oasis" - How to Find Us</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f9fa;
+            color: #333;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, #5F9CA6, #7BABB3);
+            padding: 15px 0;
+            border-bottom: 1px solid #deedf5;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 150px;
+            height: auto;
+        }
+
+        .nav {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-link {
+            color: #333;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            position: relative;
+            padding: 10px 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #45a049;
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .lang-switcher {
+            display: flex;
+            gap: 10px;
+            margin-left: 30px;
+        }
+
+        .lang-link {
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 5px 8px;
+            border-radius: 4px;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .lang-link:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .lang-link.active {
+            background-color: white;
+            color: #5F9CA6;
+            font-weight: bold;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            height: 3px;
+            width: 100%;
+            background-color: #333;
+            border-radius: 3px;
+        }
+
+        /* Main Content Styles */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .page-title {
+            font-size: 36px;
+            color: #2a6d31;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .page-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: #45a049;
+            margin: 15px auto 0;
+        }
+
+        .location-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .location-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .location-info h2 {
+            font-size: 28px;
+            color: #2a6d31;
+            margin-bottom: 20px;
+        }
+
+        .location-info p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .address-block {
+            background-color: #f5f9fa;
+            border-left: 4px solid #45a049;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .address-block h3 {
+            color: #2a6d31;
+            margin-bottom: 10px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .map-container {
+            position: relative;
+            height: 100%;
+            min-height: 400px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .transportation-section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            color: #2a6d31;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: #45a049;
+            margin-top: 10px;
+        }
+
+        .transport-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .transport-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .transport-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .transport-card-header {
+            background-color: #f0f8ff;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .transport-card-header h3 {
+            color: #2a6d31;
+            font-size: 22px;
+        }
+
+        .transport-card-body {
+            padding: 20px;
+        }
+
+        .transport-card-body p, .transport-card-body li {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .transport-card-body ul {
+            list-style-position: inside;
+            margin-bottom: 15px;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #2a6d31, #45a049);
+            padding: 60px 0;
+            text-align: center;
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 60px;
+        }
+
+        .cta-section h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: white;
+            color: #2a6d31;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 18px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin: 0 10px;
+        }
+
+        .button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .button.secondary {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .faq-section {
+            margin-bottom: 60px;
+        }
+
+        .faq-container {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .faq-item:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .faq-question {
+            font-size: 20px;
+            color: #2a6d31;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .faq-answer {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .footer-section h4 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .footer-section h4::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 2px;
+            background-color: #45a049;
+            margin-top: 10px;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #ccc;
+            margin-bottom: 10px;
+            text-decoration: none;
+            display: block;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+
+        .social-link:hover {
+            background-color: #45a049;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: #888;
+        }
+
+        .footer-lang-switcher {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .footer-lang-link {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-lang-link:hover {
+            color: white;
+        }
+
+        .footer-lang-link.active {
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .location-section {
+                grid-template-columns: 1fr;
+            }
+
+            .map-container {
+                min-height: 350px;
+            }
+
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .lang-switcher {
+                position: absolute;
+                right: 60px;
+            }
+
+            .transport-options {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="imagesoasis/logooasis.png" alt="Sanatorium Oasis" style="width: 220px; height: 70px; object-fit: contain;"/>
+            </div>
+            <div class="nav">
+                <a href="maine.html" class="nav-link" style="font-family: 'Montserrat', Arial, sans-serif; font-weight: 1000;">Home Page</a>
+                <a href="directionse.html" class="nav-link" style="font-family: 'Montserrat', Arial, sans-serif; font-weight: 1000;">Treatment Areas</a>
+                <a href="finde.html" class="nav-link" style="font-family: 'Montserrat', Arial, sans-serif; font-weight: 1000;">How to Find Us</a>
+            </div>
+            <div class="lang-switcher">
+                <a href="find.html" class="lang-link" style="font-family: 'Montserrat', Arial, sans-serif; font-weight: 1000;">RUS</a>
+                <a href="findk.html" class="lang-link" style="font-family: 'Montserrat', Arial, sans-serif; font-weight: 1000;">KAZ</a>
+                <a href="finde.html" class="lang-link active" style="font-family: 'Montserrat', Arial, sans-serif; font-weight: 1000;">ENG</a>
+            </div>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1 class="page-title" style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">How to Find Us</h1>
+        
+        <section class="location-section">
+            <div class="location-info">
+                <h2 style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">Sanatorium Location</h2>
+                <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Sanatorium "Oasis" is located in a picturesque area of the Karkaraly Mountains, 15 km from the town of Karkaraly. Our unique location combines accessibility and seclusion among nature.</p>
+                
+                <div class="address-block">
+                    <h3 style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">Full Address</h3>
+                    <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Republic of Kazakhstan<br>
+                    Karaganda Region<br>
+                    Karkaraly town<br>
+                    25 Kurortnaya Street<br>
+                    Sanatorium "Oasis"</p>
+                </div>
+                
+                <div class="contact-info">
+                    <h3 style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">Contact Information</h3>
+                    <div class="contact-item">
+                        <strong style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 700;">Reception:</strong>
+                        <span style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">+7 (771) 773-21-32</span>
+                    </div>
+                    <div class="contact-item">
+                        <strong style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 700;">Booking Department:</strong>
+                        <span style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">+7 (771) 773-21-34</span>
+                    </div>
+                    <div class="contact-item">
+                        <strong style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 700;">Email:</strong>
+                        <span style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">info@oasis-sanatorium.kz</span>
+                    </div>
+                    <div class="contact-item">
+                        <strong style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 700;">Reception Working Hours:</strong>
+                        <span style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">24/7</span>
+                    </div>
+                </div>
+                
+                <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">GPS Coordinates: 49.3960° N, 75.4721° E</p>
+            </div>
+            
+            <div class="map-container">
+                <img src="imagesoasis/location.png" alt="Map showing location of Oasis Sanatorium" class="map-placeholder"/>
+            </div>
+        </section>
+        
+        <section class="transportation-section">
+            <h2 class="section-title" style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">How to Reach Us</h2>
+            
+            <div class="transport-options">
+                <div class="transport-card">
+                    <div class="transport-card-header">
+                        <h3 style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">By Car from Karaganda</h3>
+                    </div>
+                    <div class="transport-card-body">
+                        <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Distance: about 220 km</p>
+                        <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Approximate travel time: 3 hours</p>
+                        <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;"><strong>Route:</strong></p>
+                        <ul>
+                            <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Leave Karaganda via the P-187 highway towards Karkaraly town</li>
+                            <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Follow the highway to the Karkaraly sign</li>
+                            <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">After passing through the town, follow the signs to Sanatorium "Oasis" (15 km from the town center)</li>
+                        </ul>
+                        <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;"><strong>Note:</strong> The road is paved throughout. Free parking is provided for guests on the sanatorium grounds.</p>
+                    </div>
+                </div>
+                
+                <div class="transport-card">
+                    <div class="transport-card-header">
+                        <h3 style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">By Bus</h3>
+                    </div>
+                    <div class="transport-card-body">
+                        <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;"><strong>From Karaganda:</strong></p>
+                        <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Buses depart daily from Karaganda bus station to Karkaraly:</p>
+                        <ul>
+                            <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Departure times: 08:00, 12:00, 16:00</li>
+                            <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Ticket price: around 2500 tenge</li>
+                            <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Travel time: 3.5-4 hours</li>
+                        </ul>
+                        <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;"><strong>From Karkaraly to the sanatorium:</strong></p>
+                        <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">From Karkaraly bus station to the sanatorium, you can reach us by:</p>
+                        <ul>
+                            <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Taxi: approximately 2000-2500 tenge</li>
+                            <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Route taxi №5: departs every hour, costs 300 tenge</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="transport-card">
+                    <div class="transport-card-header">
+                        <h3 style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">Transfer from the Sanatorium</h3>
+                    </div>
+                    <div class="transport-card-body">
+                        <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Sanatorium "Oasis" offers a transfer service for its guests:</p>
+                        <ul>
+                            <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Meeting at Karaganda airport</li>
+                            <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Transfer from Karkaraly bus station</li>
+                            <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Individual transfer in a comfortable vehicle</li>
+                        </ul>
+                        <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;"><strong>To order a transfer:</strong></p>
+                        <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Contact the booking department at +7 (771) 773-21-34 at least 24 hours before arrival.</p>
+                        <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;"><strong>Price:</strong></p>
+                        <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">From Karaganda airport: 15000 tenge<br>
+                        From Karkaraly bus station: 2000 tenge</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="cta-section">
+            <h2 style="font-family: 'Montserrat', Arial, sans-serif; color: white; font-weight: 2000;">Planning a trip to Sanatorium "Oasis"?</h2>
+            <p style="font-family: 'Montserrat', Arial, sans-serif; color: white; font-weight: 2000;">Our booking department will be happy to help organize your arrival and answer all your questions</p>
+            <a href="brone.html" class="button" style="font-family: 'Montserrat', Arial, sans-serif; font-weight: 2000;">Book a Stay</a>
+        </section>
+        
+        <section class="faq-section">
+            <h2 class="section-title" style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">Frequently Asked Questions</h2>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question" style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">What are the check-in and check-out times at the sanatorium?</div>
+                    <div class="faq-answer" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Check-in at the sanatorium is from 14:00, check-out is until 12:00. Subject to availability, early check-in or late check-out is possible for an additional fee.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">Are there any attractions nearby?</div>
+                    <div class="faq-answer" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Yes, in the vicinity of Sanatorium "Oasis" there are numerous natural and historical attractions: Karkaraly National Park, Lake Shaitankol, Aulietas Cave, Kent Mountains. The sanatorium organizes excursions to these sites.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">Is internet available on the sanatorium grounds?</div>
+                    <div class="faq-answer" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Yes, free Wi-Fi is available throughout the sanatorium. However, in some remote parts of the territory, the signal may be weaker due to the mountainous terrain.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">Which mobile network works best in the sanatorium area?</div>
+                    <div class="faq-answer" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Beeline and Kcell provide the most stable coverage in the sanatorium area. The signal of other operators may be unstable due to the features of the mountainous terrain.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">Is there medical staff at the sanatorium?</div>
+                    <div class="faq-answer" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Yes, Sanatorium "Oasis" has qualified medical staff, including therapists, cardiologists, neurologists, and physiotherapists. Medical assistance is available 24/7.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">Do I need to bring special clothing?</div>
+                    <div class="faq-answer" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">We recommend bringing comfortable clothing for walking in mountainous terrain, swimwear for the pool and spa procedures, and warm clothes for evening walks (even in summer, it can be cool in the mountains). Special robes and slippers for medical treatments are provided by the sanatorium.</div>
+                </div>
+            </div>
+        </section>
+                
+        <section class="transportation-section">
+            <h2 class="section-title" style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">Surroundings of the Sanatorium</h2>
+            
+            <div class="transport-options">
+                <div class="transport-card">
+                    <div class="transport-card-header">
+                        <h3 style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">Natural Attractions</h3>
+                    </div>
+                    <div class="transport-card-body">
+                        <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Unique natural sites are located in the vicinity of Sanatorium "Oasis":</p>
+                        <ul>
+                            <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;"><strong>Lake Shaitankol</strong> - a picturesque mountain lake (7 km from the sanatorium)</li>
+                            <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;"><strong>Karkaraly National Park</strong> - a protected natural area with rich flora and fauna</li>
+                            <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;"><strong>Aulietas Cave</strong> - an ancient cave with rock paintings (12 km from the sanatorium)</li>
+                            <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;"><strong>"Finger" and "Shanyrak" Rocks</strong> - unique natural rock formations</li>
+                        </ul>
+                        <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">The sanatorium organizes excursions to these places. Information can be obtained at the reception.</p>
+                    </div>
+                </div>
+                
+                <div class="transport-card">
+                    <div class="transport-card-header">
+                        <h3 style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">Karkaraly Town</h3>
+                    </div>
+                    <div class="transport-card-body">
+                        <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">In Karkaraly town, located 15 km from the sanatorium, you can visit:</p>
+                        <ul>
+                            <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;"><strong>Historical and Local History Museum</strong> - an exhibition about the history and culture of the region</li>
+                            <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;"><strong>Kunanbay Mosque</strong> - a historical religious building from the 19th century</li>
+                            <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;"><strong>Merchant Ryazantsev's House</strong> - an architectural monument</li>
+                            <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;"><strong>Central Market</strong> - where you can buy local products and souvenirs</li>
+                        </ul>
+                        <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">The town also has cafes, restaurants, pharmacies, and shops where you can purchase everything you need.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4 style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 1000;">About Us</h4>
+                <p style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Sanatorium "Oasis" is a modern health resort in the Karkaraly Mountains with more than 20 years of experience in the field of sanatorium and resort treatment.</p>
+            </div>
+            <div class="footer-section">
+                <h4 style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 1000;">Contacts</h4>
+                <p style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Kazakhstan, Karaganda Region, Karkaraly town</p>
+                <p style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Phone: +7 (771) 773-21-32</p>
+                <p style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Email: info@oasis-sanatorium.kz</p>
+            </div>
+            <div class="footer-section">
+                <h4 style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 1000;">Navigation</h4>
+                <a href="maine.html" style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Home Page</a>
+                <a href="directionse.html" style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Treatment Areas</a>
+                <a href="finde.html" style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">How to Find Us</a>
+                <a href="pricee.html" style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Prices</a>
+            </div>
+            <div class="footer-section">
+                <h4 style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 1000;">Social Media</h4>
+                <p style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Follow us on social media to stay updated with news and promotions</p>
+                <div class="social-links">
+                    <a href="#" class="social-link" >FB</a>
+                    <a href="#" class="social-link">IG</a>
+                    <a href="#" class="social-link">VK</a>
+                    <a href="#" class="social-link">TG</a>
+                </div>
+                <h4 style="margin-top: 20px;" style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 1000;">Website Language</h4>
+                <div class="footer-lang-switcher">
+                    <a href="find.html" class="footer-lang-link" style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Russian</a>
+                    <a href="findk.html" class="footer-lang-link" style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Kazakh</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">© 2025 Sanatorium "Oasis". All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const nav = document.querySelector('.nav');
+            
+            menuToggle.addEventListener('click', function() {
+                nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+                if (nav.style.display === 'flex') {
+                    nav.style.flexDirection = 'column';
+                    nav.style.position = 'absolute';
+                    nav.style.top = '80px';
+                    nav.style.right = '20px';
+                    nav.style.backgroundColor = 'white';
+                    nav.style.padding = '20px';
+                    nav.style.borderRadius = '10px';
+                    nav.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.1)';
+                    nav.style.zIndex = '100';
+                }
+            });
+
+            // Language switcher functionality
+            const langLinks = document.querySelectorAll('.lang-link, .footer-lang-link');
+            
+            langLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links
+                    langLinks.forEach(l => l.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    // Here you can add code to actually change the language
+                    window.location.href = this.getAttribute('href');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

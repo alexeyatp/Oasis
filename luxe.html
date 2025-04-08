@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanatorium "Oasis" - Luxury Room Booking</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f9fa;
+            color: #333;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, #5F9CA6, #7BABB3);
+            padding: 15px 0;
+            border-bottom: 1px solid #deedf5;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 150px;
+            height: auto;
+        }
+
+        .nav {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-link {
+            color: #333;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            position: relative;
+            padding: 10px 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #45a049;
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .lang-switcher {
+            display: flex;
+            gap: 10px;
+            margin-left: 30px;
+        }
+
+        .lang-link {
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 5px 8px;
+            border-radius: 4px;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .lang-link:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .lang-link.active {
+            background-color: white;
+            color: #5F9CA6;
+            font-weight: bold;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            height: 3px;
+            width: 100%;
+            background-color: #333;
+            border-radius: 3px;
+        }
+
+        /* Main Content Styles */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .page-title {
+            font-size: 36px;
+            color: #2a6d31;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .page-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: #45a049;
+            margin: 15px auto 0;
+        }
+
+        /* Booking Form Styles */
+        .booking-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .booking-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .booking-info h2 {
+            font-size: 28px;
+            color: #2a6d31;
+            margin-bottom: 20px;
+        }
+
+        .booking-info p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .room-details {
+            background-color: #f5f9fa;
+            border-left: 4px solid #45a049;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .room-details h3 {
+            color: #2a6d31;
+            margin-bottom: 10px;
+        }
+
+        .room-features {
+            list-style-type: none;
+            margin-bottom: 15px;
+        }
+
+        .room-features li {
+            padding: 6px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .room-features li::before {
+            content: "✓";
+            color: #45a049;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .price-info {
+            background-color: #e9f7ec;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .premium-tag {
+            display: inline-block;
+            background-color: #d4af37;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .price-info h3 {
+            color: #2a6d31;
+            margin-bottom: 10px;
+        }
+
+        .booking-form-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .booking-form-container h2 {
+            font-size: 28px;
+            color: #2a6d31;
+            margin-bottom: 20px;
+        }
+
+        .booking-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: #444;
+        }
+
+        .form-control {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: #45a049;
+            outline: none;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .treatments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .treatment-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .treatment-option input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #45a049;
+        }
+
+        .submit-button {
+            margin-top: 20px;
+            padding: 15px;
+            background: linear-gradient(135deg, #2a6d31, #45a049);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .room-image {
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .room-image img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.5s;
+        }
+
+        .room-image:hover img {
+            transform: scale(1.03);
+        }
+
+        .luxury-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #d4af37, #f9d877);
+            color: #5f4c0b;
+            padding: 6px 12px;
+            border-radius: 25px;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+
+        .complimentary-services {
+            background-color: #f9f5e7;
+            border-left: 4px solid #d4af37;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .complimentary-services h3 {
+            color: #5f4c0b;
+            margin-bottom: 10px;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .footer-section h4 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .footer-section h4::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 2px;
+            background-color: #45a049;
+            margin-top: 10px;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #ccc;
+            margin-bottom: 10px;
+            text-decoration: none;
+            display: block;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+
+        .social-link:hover {
+            background-color: #45a049;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: #888;
+        }
+
+        .footer-lang-switcher {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .footer-lang-link {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-lang-link:hover {
+            color: white;
+        }
+
+        .footer-lang-link.active {
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .booking-section {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .lang-switcher {
+                position: absolute;
+                right: 60px;
+            }
+
+            .row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="imagesoasis/logooasis.png" alt="Oasis Sanatorium" style="width: 220px; height: 70px; object-fit: contain;"/>
+            </div>
+            <div class="nav">
+                <a href="maine.html" class="nav-link" style="font-family: 'Montserrat', Arial, sans-serif; font-weight: 1000;">Home</a>
+                <a href="directionse.html" class="nav-link" style="font-family: 'Montserrat', Arial, sans-serif; font-weight: 1000;">Treatment Areas</a>
+                <a href="finde.html" class="nav-link" style="font-family: 'Montserrat', Arial, sans-serif; font-weight: 1000;">How to Find Us</a>
+            </div>
+            <div class="lang-switcher">
+                <a href="lux.html" class="lang-link" style="font-family: 'Montserrat', Arial, sans-serif; font-weight: 1000;">РУС</a>
+                <a href="luxk.html" class="lang-link" style="font-family: 'Montserrat', Arial, sans-serif; font-weight: 1000;">ҚАЗ</a>
+                <a href="luxe.html" class="lang-link active" style="font-family: 'Montserrat', Arial, sans-serif; font-weight: 1000;">ENG</a>
+            </div>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1 class="page-title" style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">Luxury Room Booking</h1>
+        
+        <section class="booking-section">
+            <div class="booking-info">
+                <div class="room-image">
+                    <img src="imagesoasis/lux.jpg" alt="Luxury Room" />
+                </div>
+                
+                <h2 style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">
+                    <span class="luxury-badge">LUXURY</span> Premium Room
+                </h2>
+                <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">A luxurious room with enhanced comfort for those who appreciate space and sophistication. Elegant interior, modern equipment, and the highest level of service will create an atmosphere of special comfort during your stay.</p>
+                
+                <div class="room-details">
+                    <h3 style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">Room Features</h3>
+                    <ul class="room-features">
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Room area: 45 m²</li>
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">King-size bed (200×200 cm)</li>
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Separate living area with sofa</li>
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Spacious bathroom with bathtub and shower cabin</li>
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Hairdryer, bathrobes, and slippers</li>
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">55" flat-screen LED TV</li>
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Mini-bar with refreshing drinks</li>
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Coffee machine and tea facilities</li>
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Safe</li>
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Individual climate control</li>
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">High-speed Wi-Fi</li>
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Balcony with mountain view</li>
+                    </ul>
+                </div>
+                
+                <div class="complimentary-services">
+                    <h3 style="font-family: 'Montserrat', Arial, sans-serif; color: #5f4c0b; font-weight: 2000;">Additional Privileges</h3>
+                    <ul class="room-features">
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Priority service</li>
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Daily newspaper</li>
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Extended menu selection in the restaurant</li>
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Daily fresh fruit in the room</li>
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">One complimentary spa treatment (60 min)</li>
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Late check-out (until 2:00 PM) subject to availability</li>
+                    </ul>
+                </div>
+                
+                <div class="price-info">
+                    <h3 style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">Price</h3>
+                    <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;"><strong>Luxury Package (7 days):</strong> 210,000 tenge/person</p>
+                    <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;"><strong>Included:</strong> accommodation, 3 premium meals per day, basic and additional medical treatments (doctor consultation, therapeutic exercise, phytotherapy, one massage session daily)</p>
+                    <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;"><strong>Additional services:</strong> an individual treatment program can be arranged by a doctor upon arrival</p>
+                </div>
+            </div>
+            
+            <div class="booking-form-container">
+                <h2 style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">Complete the Booking Form</h2>
+                
+                <form class="booking-form">
+                    <div class="form-group">
+                        <label for="fullname" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 700;">Full Name</label>
+                        <input type="text" id="fullname" class="form-control" placeholder="Enter your full name" required>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="phone" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 700;">Phone</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="+7 (___) ___-__-__" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 700;">Email</label>
+                            <input type="email" id="email" class="form-control" placeholder="example@mail.com" required>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="arrival" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 700;">Arrival Date</label>
+                            <input type="date" id="arrival" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="departure" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 700;">Departure Date</label>
+                            <input type="date" id="departure" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="guests" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 700;">Number of Guests</label>
+                        <select id="guests" class="form-control" required>
+                            <option value="1">1 guest</option>
+                            <option value="2">2 guests</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="breakfast" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 700;">Breakfast Preferences</label>
+                        <select id="breakfast" class="form-control">
+                            <option value="standard">Standard breakfast</option>
+                            <option value="continental">Continental breakfast</option>
+                            <option value="dietetic">Dietetic breakfast</option>
+                            <option value="vegan">Vegetarian breakfast</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 700;">Additional VIP Treatments</label>
+                        <div class="treatments-list">
+                            <div class="treatment-option">
+                                <input type="checkbox" id="treatment1" name="treatments[]" value="facial">
+                                <label for="treatment1" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Facial spa treatment (+ 15,000 tenge)</label>
+                            </div>
+                            <div class="treatment-option">
+                                <input type="checkbox" id="treatment2" name="treatments[]" value="stone">
+                                <label for="treatment2" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Hot stone massage (+ 18,000 tenge)</label>
+                            </div>
+                            <div class="treatment-option">
+                                <input type="checkbox" id="treatment3" name="treatments[]" value="aromatherapy">
+                                <label for="treatment3" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Aromatherapy massage (+ 16,000 tenge)</label>
+                            </div>
+                            <div class="treatment-option">
+                                <input type="checkbox" id="treatment4" name="treatments[]" value="algae">
+                                <label for="treatment4" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Seaweed body wrap (+ 20,000 tenge)</label>
+                            </div>
+                            <div class="treatment-option">
+                                <input type="checkbox" id="treatment5" name="treatments[]" value="oxygen">
+                                <label for="treatment5" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Premium oxygen therapy (+ 12,000 tenge)</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="transfer" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 700;">Do you need a VIP transfer?</label>
+                        <select id="transfer" class="form-control">
+                            <option value="none">Not needed</option>
+                            <option value="airport">From/to airport (25,000 tenge)</option>
+                            <option value="city">From/to Karaganda city (20,000 tenge)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="comments" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 700;">Special Requests</label>
+                        <textarea id="comments" class="form-control" rows="4" placeholder="Indicate any additional information or special requests"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-button" style="font-family: 'Montserrat', Arial, sans-serif; font-weight: 2000;">Book Luxury Room</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4 style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 1000;">About Us</h4>
+                <p style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Sanatorium "Oasis" is a modern health resort in the Karkaraly Mountains with more than 20 years of experience in the field of sanatorium and spa treatment.</p>
+            </div>
+            <div class="footer-section">
+                <h4 style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 1000;">Contacts</h4>
+                <p style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Kazakhstan, Karaganda Region, Karkaraly town</p>
+                <p style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Phone: +7 (771) 773-21-32</p>
+                <p style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Email: info@oasis-sanatorium.kz</p>
+            </div>
+            <div class="footer-section">
+                <h4 style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 1000;">Navigation</h4>
+                <a href="maine.html" style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Home</a>
+                <a href="directionse.html" style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Treatment Areas</a>
+                <a href="finde.html" style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">How to Find Us</a>
+                <a href="pricee.html" style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Prices</a>
+            </div>
+            <div class="footer-section">
+                <h4 style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 1000;">Social Media</h4>
+                <p style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Follow us on social media to stay updated with news and promotions</p>
+                <div class="social-links">
+                    <a href="#" class="social-link" >FB</a>
+                    <a href="#" class="social-link">IG</a>
+                    <a href="#" class="social-link">VK</a>
+                    <a href="#" class="social-link">TG</a>
+                </div>
+                <h4 style="margin-top: 20px; font-family: 'Montserrat', sans-serif; color: white; font-weight: 1000;">Website Language</h4>
+                <div class="footer-lang-switcher">
+                    <a href="lux.html" class="footer-lang-link" style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Russian</a>
+                    <a href="luxk.html" class="footer-lang-link" style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Kazakh</a>
+                    <a href="luxe.html" class="footer-lang-link active" style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">English</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">© 2025 Sanatorium "Oasis". All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const nav = document.querySelector('.nav');
+            
+            menuToggle.addEventListener('click', function() {
+                nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+                if (nav.style.display === 'flex') {
+                    nav.style.flexDirection = 'column';
+                    nav.style.position = 'absolute';
+                    nav.style.top = '80px';
+                    nav.style.right = '20px';
+                    nav.style.backgroundColor = 'white';
+                    nav.style.padding = '20px';
+                    nav.style.borderRadius = '10px';
+                    nav.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.1)';
+                    nav.style.zIndex = '100';
+                }
+            });
+
+            // Language switcher functionality
+            const langLinks = document.querySelectorAll('.lang-link, .footer-lang-link');
+            
+            langLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links
+                    langLinks.forEach(l => l.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    // Here you can add code to actually change the language
+                    window.location.href = this.getAttribute('href');
+                });
+            });
+
+            // Form validation and date handling
+            const arrivalInput = document.getElementById('arrival');
+            const departureInput = document.getElementById('departure');
+            const form = document.querySelector('.booking-form');
+
+            // Set minimum arrival date to today
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            const formattedToday = `${yyyy}-${mm}-${dd}`;
+            arrivalInput.min = formattedToday;
+
+            // Update minimum departure date based on arrival date
+            arrivalInput.addEventListener('change', function() {
+                if (arrivalInput.value) {
+                    departureInput.min = arrivalInput.value;
+                    
+                    // If departure date is before new arrival date, reset it
+                    if (departureInput.value && departureInput.value < arrivalInput.value) {
+                        departureInput.value = '';
+                    }
+                }
+            });
+
+            // Form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Here you would normally send the data to the server
+                // For this example, we'll just show an alert
+                alert('Luxury room booking has been successfully submitted! Our VIP manager will contact you soon for confirmation.');
+                
+                // Reset form
+                form.reset();
+            });
+        });
+    </script>
+</body>
+</html>

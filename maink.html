@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>«Оазис» санаториясы - Басты бет</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f9fa;
+            color: #333;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, #5F9CA6, #7BABB3);
+            padding: 15px 0;
+            border-bottom: 1px solid #deedf5;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 150px;
+            height: auto;
+        }
+
+        .nav {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-link {
+            color: #333;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            position: relative;
+            padding: 10px 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #45a049;
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .lang-switcher {
+            display: flex;
+            gap: 10px;
+            margin-left: 30px;
+        }
+
+        .lang-link {
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 5px 8px;
+            border-radius: 4px;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .lang-link:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .lang-link.active {
+            background-color: white;
+            color: #5F9CA6;
+            font-weight: bold;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            height: 3px;
+            width: 100%;
+            background-color: #333;
+            border-radius: 3px;
+        }
+
+        /* Main Content Styles */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .main-image {
+            grid-column: 1;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-image img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.5s;
+        }
+
+        .main-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .sanatorium-info {
+            grid-column: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .sanatorium-info h1 {
+            font-size: 32px;
+            color: #2a6d31;
+            margin-bottom: 20px;
+        }
+
+        .sanatorium-info p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .thumbnail-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .thumbnail {
+            width: calc(33.33% - 10px);
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .thumbnail:hover {
+            transform: translateY(-5px);
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+        }
+
+        .treatment-directions {
+            margin-top: 60px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            color: #2a6d31;
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: #45a049;
+            margin: 15px auto 0;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            background-color: #f0f8ff;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .card-header h3 {
+            color: #2a6d31;
+            font-size: 22px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-body p {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .testimonials {
+            margin-top: 60px;
+        }
+
+        .testimonial-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial {
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .testimonial::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            font-size: 60px;
+            color: #e1f0e3;
+            font-family: serif;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: #2a6d31;
+        }
+
+        .testimonial-author span {
+            font-weight: normal;
+            color: #666;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #2a6d31, #45a049);
+            margin-top: 60px;
+            padding: 60px 0;
+            text-align: center;
+            color: white;
+            border-radius: 10px;
+        }
+
+        .cta-section h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: white;
+            color: #2a6d31;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 18px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin: 0 10px;
+        }
+
+        .button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .button.secondary {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .services-list {
+            margin: 40px 0;
+        }
+
+        .services-list h3 {
+            color: #2a6d31;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .services-list ul {
+            list-style-type: none;
+        }
+
+        .services-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+
+        .services-list li::before {
+            content: "•";
+            color: #45a049;
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .footer-section h4 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .footer-section h4::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 2px;
+            background-color: #45a049;
+            margin-top: 10px;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #ccc;
+            margin-bottom: 10px;
+            text-decoration: none;
+            display: block;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+
+        .social-link:hover {
+            background-color: #45a049;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: #888;
+        }
+
+        .footer-lang-switcher {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .footer-lang-link {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-lang-link:hover {
+            color: white;
+        }
+
+        .footer-lang-link.active {
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .main-image, .sanatorium-info {
+                grid-column: 1;
+                width: 600px; 
+                height: 600px;
+            }
+
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .lang-switcher {
+                position: absolute;
+                right: 60px;
+            }
+
+            .cards-container, .testimonial-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="imagesoasis/logooasis.png" alt="Оазис санаториясы" style="width: 220px; height: 70px; object-fit: contain;"/>
+            </div>
+            <div class="nav">
+                <a href="maink.html" class="nav-link" style="font-family: 'Montserrat', Arial, sans-serif; font-weight: 1000;">Басты бет</a>
+                <a href="directionsk.html" class="nav-link" style="font-family: 'Montserrat', Arial, sans-serif; font-weight: 1000;">Емдеу бағыттары</a>
+                <a href="findk.html" class="nav-link" style="font-family: 'Montserrat', Arial, sans-serif; font-weight: 1000;">Бізді қалай табуға болады?</a>
+            </div>
+            <div class="lang-switcher">
+                <a href="main.html" class="lang-link" style="font-family: 'Montserrat', Arial, sans-serif; font-weight: 1000;">РУС</a>
+                <a href="maink.html" class="lang-link active" style="font-family: 'Montserrat', Arial, sans-serif; font-weight: 1000;">ҚАЗ</a>
+                <a href="maine.html" class="lang-link" style="font-family: 'Montserrat', Arial, sans-serif; font-weight: 1000;">ENG</a>
+            </div>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="hero">
+            <div class="main-image">
+                <img src="imagesoasis/sanatory.jpg" alt="Қарқаралыдағы Оазис санаториясы" style="width: 100%; height: 100%; object-fit: cover;"/>
+            </div>
+            <div class="sanatorium-info">
+                <h1 style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-size: 36px; font-weight: 2000;">Қарқаралыдағы «Оазис» санаториясы</h1>
+                <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Бұл табиғат аясында демалу мен сауықтыру үшін тамаша орын. Қарқаралы тауларының жүрегінде орналасқан санаторий таза таулы ауа, заманауи медициналық емшаралар мен жайлы тұру жағдайларын біріктіреді.</p>
+                <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Біздің санаторий алдыңғы қатарлы емдеу әдістері мен аймақтың табиғи факторларын пайдалана отырып, сауықтыру мен оңалтуға кешенді көзқарас ұсынады.</p>
+                <div class="thumbnail-gallery">
+                    <div class="thumbnail">
+                        <img src="imagesoasis/vid.jpg" alt="Санаторийдің сыртқы көрінісі" style="width: 100%; height: 100%; object-fit: cover;"/>
+                    </div>
+                    <div class="thumbnail">
+                        <img src="imagesoasis/hall.jpg" alt="Санаторий холлы" style="width: 100%; height: 100%; object-fit: cover;"/>
+                    </div>
+                    <div class="thumbnail">
+                        <img src="imagesoasis/nomer.jpg" alt="Санаторийдегі нөмір" style="width: 100%; height: 100%; object-fit: cover;"/>
+                    </div>
+                    <div class="thumbnail">
+                        <img src="imagesoasis/proz.jpg" alt="Санаторийдің емдеу бөлмесі" style="width: 100%; height: 100%; object-fit: cover;"/>
+                    </div>
+                    <div class="thumbnail">
+                        <img src="imagesoasis/stolovaya.jpg" alt="Санаторий асханасы" style="width: 100%; height: 100%; object-fit: cover;"/>
+                    </div>
+                    <div class="thumbnail">
+                        <img src="imagesoasis/ter.jpg" alt="Санаторий аумағы" style="width: 100%; height: 100%; object-fit: cover;"/>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="treatment-directions">
+            <h2 class="section-title" style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">Емдеу бағыттары</h2>
+            <div class="cards-container">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">Кардиология</h3>
+                    </div>
+                    <div class="card-body">
+                        <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">«Оазис» санаториясындағы кардиология — жүрек-қан тамырлары жүйесін алдын-алу және қалпына келтіруге арналған кешенді бағдарлама. Емдеу құрылғылық және физиотерапиялық процедураларды, кардиотренингтерді, емдік дене шынықтыру мен диетотерапияны қамтиды.</p>
+                        <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Тәжірибелі мамандардың бақылауымен инфаркттан кейінгі оңалту, қан қысымын қалыпқа келтіру және қан тамырларын нығайту жүргізіледі. Қарқаралы тауларының таза ауасы мен тыныш атмосферасы жүрек пен жалпы денсаулықтың тиімді қалпына келуіне ықпал етеді.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">Неврология</h3>
+                    </div>
+                    <div class="card-body">
+                        <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Біздің неврологиялық оңалту бағдарламалары әр пациентке жеке көзқарасты қамтиды. Біз инсульттан кейінгі қалпына келтіруге, невроздарды, бас ауруларын және басқа да неврологиялық ауруларды емдеуге маманданамыз.</p>
+                        <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Процедуралар кешені жүйке жүйесінің жұмысын жақсартуға және өмір сапасын арттыруға бағытталған физиотерапия, массаж, емдік дене шынықтыру, гидротерапия және психотерапиялық сеанстарды қамтиды.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">Тірек-қимыл аппараты</h3>
+                    </div>
+                    <div class="card-body">
+                        <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Біздің санаторийде тірек-қимыл аппараты ауруларын емдеу кешенді тәсілге негізделген. Біз жарақаттан кейінгі қалпына келтіру, артрит, артроз, остеохондроз және басқа да патологияларды емдеуге арналған тиімді әдістемелер ұсынамыз.</p>
+                        <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Емдеу бағдарламасы қозғалғыштықты қалпына келтіруге және ауырсынуды азайтуға ықпал ететін балшықпен емдеуді, минералды ванналарды, массажды, емдік дене шынықтыруды, физиотерапияны және заманауи аппараттық әдістемелерді қамтиды.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="services-list">
+            <h3 style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">Емдік процедуралар</h3>
+            <ul>
+                <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Минералды және емдік ванналар (інжу, қылқан жапырақты, күкіртсутекті)</li>
+                <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Балшықпен емдеу (парафинотерапия, озокерит аппликациялары)</li>
+                <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Шөптік және минералды ерітінділермен ингаляциялар</li>
+                <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Гидротерапия (Шарко душы, айналмалы душ, су асты массажы)</li>
+                <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Оттегі терапиясы (оттегі коктейльдері, барокамера)</li>
+                <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Физиотерапиялық процедуралар (электрофорез, УВЧ, магнитотерапия)</li>
+                <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Массаж (классикалық, нүктелік, лимфодренаждық)</li>
+                <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Рефлексотерапия және акупунктура</li>
+                <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Емдік дене шынықтыру және кинезитерапия</li>
+            </ul>
+        </section>
+
+        <section class="testimonials">
+            <h2 class="section-title" style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">Пациенттеріміздің пікірлері</h2>
+            <div class="testimonial-container">
+                <div class="testimonial">
+                    <p class="testimonial-text" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">«Оазис» санаториясында демалу маған тек жақсы әсер қалдырды! Керемет таза ауа, тыныштық және қамқор персонал мұндағы болуымды ұмытылмастай етті. Буын үшін сауықтыру курсынан өттім – процедуралар өте тиімді, ал массаждан кейін өзімді қайта туғандай сезіндім. Міндетті түрде қайтадан келемін!</p>
+                    <p class="testimonial-author" style="font-family: 'Montserrat', sans-serif; font-weight: 900;">Елена, 45 жаста</p>
+                </div>
+                <div class="testimonial">
+                    <p class="testimonial-text" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Санаторий көркем жерде, қала шуынан алыс орналасқан. Әсіресе емдік ванналар мен физиотерапия ұнады. Бірнеше күн ішінде жақсаруды сезіндім. Персонал мұқият, тамақтану теңгерімді, бөлмелер жайлы. Демалу мен күш-қуатты қалпына келтіру үшін тамаша орын!</p>
+                    <p class="testimonial-author" style="font-family: 'Montserrat', sans-serif; font-weight: 900;">Андрей, 52 жаста</p>
+                </div>
+                <div class="testimonial">
+                    <p class="testimonial-text" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Қайта жаңғыру үшін тамаша орын! Жайлы бөлмелер, дәмді тағам және өте кәсіби медициналық персонал. Жүйке жүйесін нығайту бағдарламасы өте ұнады – процедуралар, тауда серуендеу және релакс-терапия керемет әсер берді. Жаны мен тәнімен демалғысы келетін барлық адамдарға ұсынамын!</p>
+                    <p class="testimonial-author" style="font-family: 'Montserrat', sans-serif; font-weight: 900;">Марина, 38 жаста</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <h2 style="font-family: 'Montserrat', Arial, sans-serif; color: white; font-weight: 2000;">Денсаулығыңызды бүгіннен бастап ойлаңыз!</h2>
+            <p style="font-family: 'Montserrat', Arial, sans-serif; color: white; font-weight: 2000;">«Оазис» санаториясына жолдама брондаңыз және Қарқаралы тауларының әдемі табиғат аясында денсаулығыңызды қалпына келтіріңіз</p>
+            <div>
+                <a href="standartk.html" class="button" style="font-family: 'Montserrat', Arial, sans-serif; font-weight: 2000;">Стандарт бөлмені брондау</a>
+                <a href="luxk.html" class="button" style="font-family: 'Montserrat', Arial, sans-serif; font-weight: 2000;">Люкс бөлмені брондау</a>
+            </div>
+            <div style="margin-top: 20px;">
+                <a href="consultk.html" class="button secondary" style="font-family: 'Montserrat', Arial, sans-serif; color: white; font-weight: 2000;">Консультацияға жазылу</a>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4 style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 1000;">Біз туралы</h4>
+               <p style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">"Оазис" санаториясы - Қарқаралы тауларындағы заманауи сауықтыру кешені, санаторлық-курорттық емдеу саласында 20 жылдан астам тәжірибесі бар.</p>
+               </div>
+               <div class="footer-section">
+               <h4 style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 1000;">Байланыс</h4>
+               <p style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Қазақстан, Қарағанды облысы, Қарқаралы қ.</p>
+               <p style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Телефон: +7 (771) 773-21-32</p>
+               <p style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Email: info@oasis-sanatorium.kz</p>
+               </div>
+               <div class="footer-section">
+               <h4 style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 1000;">Навигация</h4>
+               <a href="maink.html" style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Басты бет</a>
+               <a href="directionsk.html" style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Емдеу бағыттары</a>
+               <a href="findk.html" style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Бізді қалай табуға болады?</a>
+               <a href="pricek.html" style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Бағалар</a>
+               </div>
+               <div class="footer-section">
+               <h4 style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 1000;">Әлеуметтік желілер</h4>
+               <p style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Жаңалықтар мен акциялардан хабардар болу үшін бізді әлеуметтік желілерде қадағалаңыз</p>
+               <div class="social-links">
+               <a href="#" class="social-link" >FB</a>
+               <a href="#" class="social-link">IG</a>
+               <a href="#" class="social-link">VK</a>
+               <a href="#" class="social-link">TG</a>
+               </div>
+               <h4 style="margin-top: 20px;" style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 1000;">Сайт тілі</h4>
+               <div class="footer-lang-switcher">
+               <a href="main.html" class="footer-lang-link" style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Русский</a>
+               <a href="maink.html" class="footer-lang-link active" style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Қазақша</a>
+               <a href="maine.html" class="footer-lang-link" style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">English</a>
+               </div>
+               </div>
+               </div>
+               <div class="copyright">
+               <p style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">© 2025 "Оазис" санаториясы. Барлық құқықтар қорғалған.</p>
+               </div>
+            </footer>
+
+            <script>
+                // Simple slideshow for thumbnails
+                document.addEventListener('DOMContentLoaded', function() {
+                    const thumbnails = document.querySelectorAll('.thumbnail');
+                    const mainImage = document.querySelector('.main-image img');
+                    
+                    thumbnails.forEach(thumbnail => {
+                        thumbnail.addEventListener('click', function() {
+                            const thumbnailSrc = this.querySelector('img').src;
+                            mainImage.src = thumbnailSrc.replace('150/100', '600/400');
+                        });
+                    });
+        
+                    // Mobile menu toggle
+                    const menuToggle = document.querySelector('.menu-toggle');
+                    const nav = document.querySelector('.nav');
+                    
+                    menuToggle.addEventListener('click', function() {
+                        nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+                        if (nav.style.display === 'flex') {
+                            nav.style.flexDirection = 'column';
+                            nav.style.position = 'absolute';
+                            nav.style.top = '80px';
+                            nav.style.right = '20px';
+                            nav.style.backgroundColor = 'white';
+                            nav.style.padding = '20px';
+                            nav.style.borderRadius = '10px';
+                            nav.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.1)';
+                            nav.style.zIndex = '100';
+                        }
+                    });
+        
+                    // Language switcher functionality
+                    const langLinks = document.querySelectorAll('.lang-link, .footer-lang-link');
+                    
+                    langLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        // Remove active class from all links
+        langLinks.forEach(l => l.classList.remove('active'));
+        // Add active class to clicked link
+        this.classList.add('active');
+        // Uncomment this line to actually change the page
+        window.location.href = this.getAttribute('href');
+
+                            
+                            // Remove active class from all links
+                            langLinks.forEach(l => l.classList.remove('active'));
+                            
+                            // Add active class to clicked link
+                            this.classList.add('active');
+                            
+                            // Here you can add code to actually change the language
+                            // For example: window.location.href = this.getAttribute('href');
+                        });
+                    });
+                });
+            </script>
+        </body>
+        </html>

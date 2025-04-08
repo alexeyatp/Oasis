@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>"Оазис" санаторийі - Люкс нөмірге броньдау</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f9fa;
+            color: #333;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, #5F9CA6, #7BABB3);
+            padding: 15px 0;
+            border-bottom: 1px solid #deedf5;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 150px;
+            height: auto;
+        }
+
+        .nav {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-link {
+            color: #333;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            position: relative;
+            padding: 10px 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #45a049;
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .lang-switcher {
+            display: flex;
+            gap: 10px;
+            margin-left: 30px;
+        }
+
+        .lang-link {
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 5px 8px;
+            border-radius: 4px;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .lang-link:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .lang-link.active {
+            background-color: white;
+            color: #5F9CA6;
+            font-weight: bold;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            height: 3px;
+            width: 100%;
+            background-color: #333;
+            border-radius: 3px;
+        }
+
+        /* Main Content Styles */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .page-title {
+            font-size: 36px;
+            color: #2a6d31;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .page-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: #45a049;
+            margin: 15px auto 0;
+        }
+
+        /* Booking Form Styles */
+        .booking-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .booking-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .booking-info h2 {
+            font-size: 28px;
+            color: #2a6d31;
+            margin-bottom: 20px;
+        }
+
+        .booking-info p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .room-details {
+            background-color: #f5f9fa;
+            border-left: 4px solid #45a049;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .room-details h3 {
+            color: #2a6d31;
+            margin-bottom: 10px;
+        }
+
+        .room-features {
+            list-style-type: none;
+            margin-bottom: 15px;
+        }
+
+        .room-features li {
+            padding: 6px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .room-features li::before {
+            content: "✓";
+            color: #45a049;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .price-info {
+            background-color: #e9f7ec;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .premium-tag {
+            display: inline-block;
+            background-color: #d4af37;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .price-info h3 {
+            color: #2a6d31;
+            margin-bottom: 10px;
+        }
+
+        .booking-form-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .booking-form-container h2 {
+            font-size: 28px;
+            color: #2a6d31;
+            margin-bottom: 20px;
+        }
+
+        .booking-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: #444;
+        }
+
+        .form-control {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: #45a049;
+            outline: none;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .treatments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .treatment-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .treatment-option input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #45a049;
+        }
+
+        .submit-button {
+            margin-top: 20px;
+            padding: 15px;
+            background: linear-gradient(135deg, #2a6d31, #45a049);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .room-image {
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .room-image img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.5s;
+        }
+
+        .room-image:hover img {
+            transform: scale(1.03);
+        }
+
+        .luxury-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #d4af37, #f9d877);
+            color: #5f4c0b;
+            padding: 6px 12px;
+            border-radius: 25px;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+
+        .complimentary-services {
+            background-color: #f9f5e7;
+            border-left: 4px solid #d4af37;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .complimentary-services h3 {
+            color: #5f4c0b;
+            margin-bottom: 10px;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .footer-section h4 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .footer-section h4::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 2px;
+            background-color: #45a049;
+            margin-top: 10px;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #ccc;
+            margin-bottom: 10px;
+            text-decoration: none;
+            display: block;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+
+        .social-link:hover {
+            background-color: #45a049;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: #888;
+        }
+
+        .footer-lang-switcher {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .footer-lang-link {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-lang-link:hover {
+            color: white;
+        }
+
+        .footer-lang-link.active {
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .booking-section {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .lang-switcher {
+                position: absolute;
+                right: 60px;
+            }
+
+            .row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="imagesoasis/logooasis.png" alt="Оазис санаторийі" style="width: 220px; height: 70px; object-fit: contain;"/>
+            </div>
+            <div class="nav">
+                <a href="maink.html" class="nav-link" style="font-family: 'Montserrat', Arial, sans-serif; font-weight: 1000;">Басты бет</a>
+                <a href="directionsk.html" class="nav-link" style="font-family: 'Montserrat', Arial, sans-serif; font-weight: 1000;">Емдеу бағыттары</a>
+                <a href="findk.html" class="nav-link" style="font-family: 'Montserrat', Arial, sans-serif; font-weight: 1000;">Бізді қалай табуға болады?</a>
+            </div>
+            <div class="lang-switcher">
+                <a href="bronlux.html" class="lang-link" style="font-family: 'Montserrat', Arial, sans-serif; font-weight: 1000;">РУС</a>
+                <a href="bronluxk.html" class="lang-link active" style="font-family: 'Montserrat', Arial, sans-serif; font-weight: 1000;">ҚАЗ</a>
+                <a href="bronluxe.html" class="lang-link" style="font-family: 'Montserrat', Arial, sans-serif; font-weight: 1000;">ENG</a>
+            </div>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1 class="page-title" style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">Люкс нөмірге броньдау</h1>
+        
+        <section class="booking-section">
+            <div class="booking-info">
+                <div class="room-image">
+                    <img src="imagesoasis/lux.jpg" alt="Люкс нөмір" />
+                </div>
+                
+                <h2 style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">
+                    <span class="luxury-badge">ЛЮКС</span> Премиум нөмір
+                </h2>
+                <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Кеңістік пен сәнділікті бағалайтындар үшін жайлылығы жоғары сәнді нөмір. Талғампаз интерьер, заманауи жабдықтар мен қызмет көрсетудің жоғары деңгейі сіздің демалысыңыз кезінде ерекше жайлылық атмосферасын жасайды.</p>
+                
+                <div class="room-details">
+                    <h3 style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">Нөмір ерекшеліктері</h3>
+                    <ul class="room-features">
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Нөмір ауданы: 45 м²</li>
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Король өлшемді төсек (200×200 см)</li>
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Диваны бар бөлек қонақ бөлмесі</li>
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Ванна және душ кабинасы бар кең жуынатын бөлме</li>
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Фен, халат және тәпішке</li>
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Жалпақ экранды LED теледидар (55")</li>
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Салқындатқыш сусындары бар шағын бар</li>
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Кофе машинасы және шай ішуге арналған керек-жарақтар</li>
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Сейф</li>
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Жеке климат-бақылау</li>
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Жоғары жылдамдықты Wi-Fi</li>
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Тауларға қарайтын балкон</li>
+                    </ul>
+                </div>
+                
+                <div class="complimentary-services">
+                    <h3 style="font-family: 'Montserrat', Arial, sans-serif; color: #5f4c0b; font-weight: 2000;">Қосымша артықшылықтар</h3>
+                    <ul class="room-features">
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Басымдықты қызмет көрсету</li>
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Күнделікті газет</li>
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Мейрамханада тағамдардың кеңейтілген таңдауы</li>
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Нөмірде күнделікті жаңартылатын жемістер</li>
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Бір тегін спа-процедура (60 мин)</li>
+                        <li style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Мүмкіндік болған жағдайда кеш шығу (14:00 дейін)</li>
+                    </ul>
+                </div>
+                
+                <div class="price-info">
+                    <h3 style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">Құны</h3>
+                    <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;"><strong>Люкс жолдама (7 күн):</strong> 210 000 теңге/адам</p>
+                    <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;"><strong>Қамтиды:</strong> тұру, 3 мезгіл премиум-тамақтану, негізгі және қосымша емдік процедуралар (дәрігер кеңесі, емдік дене шынықтыру, фитотерапия, күнделікті бір массаж сеансы)</p>
+                    <p style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;"><strong>Қосымша қызметтер:</strong> жеке процедуралар бағдарламасын келгеннен кейін дәрігер құрастыра алады</p>
+                </div>
+            </div>
+            
+            <div class="booking-form-container">
+                <h2 style="font-family: 'Montserrat', Arial, sans-serif; color: #2a6d31; font-weight: 2000;">Броньдау формасын толтырыңыз</h2>
+                
+                <form class="booking-form">
+                    <div class="form-group">
+                        <label for="fullname" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 700;">Аты-жөніңіз</label>
+                        <input type="text" id="fullname" class="form-control" placeholder="Толық атыңызды енгізіңіз" required>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="phone" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 700;">Телефон</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="+7 (___) ___-__-__" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 700;">Email</label>
+                            <input type="email" id="email" class="form-control" placeholder="example@mail.com" required>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="arrival" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 700;">Келу күні</label>
+                            <input type="date" id="arrival" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="departure" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 700;">Кету күні</label>
+                            <input type="date" id="departure" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="guests" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 700;">Қонақтар саны</label>
+                        <select id="guests" class="form-control" required>
+                            <option value="1">1 қонақ</option>
+                            <option value="2">2 қонақ</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="breakfast" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 700;">Таңғы ас қалауы</label>
+                        <select id="breakfast" class="form-control">
+                            <option value="standard">Стандартты таңғы ас</option>
+                            <option value="continental">Континентальды таңғы ас</option>
+                            <option value="dietetic">Диеталық таңғы ас</option>
+                            <option value="vegan">Вегетариандық таңғы ас</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 700;">Қосымша VIP процедуралар</label>
+                        <div class="treatments-list">
+                            <div class="treatment-option">
+                                <input type="checkbox" id="treatment1" name="treatments[]" value="facial">
+                                <label for="treatment1" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Бетке спа-күтім (+ 15 000 теңге)</label>
+                            </div>
+                            <div class="treatment-option">
+                                <input type="checkbox" id="treatment2" name="treatments[]" value="stone">
+                                <label for="treatment2" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Ыстық тастармен массаж (+ 18 000 теңге)</label>
+                            </div>
+                            <div class="treatment-option">
+                                <input type="checkbox" id="treatment3" name="treatments[]" value="aromatherapy">
+                                <label for="treatment3" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Ароматерапиялық массаж (+ 16 000 теңге)</label>
+                            </div>
+                            <div class="treatment-option">
+                                <input type="checkbox" id="treatment4" name="treatments[]" value="algae">
+                                <label for="treatment4" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Теңіз балдырларымен орау (+ 20 000 теңге)</label>
+                            </div>
+                            <div class="treatment-option">
+                                <input type="checkbox" id="treatment5" name="treatments[]" value="oxygen">
+                                <label for="treatment5" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 500;">Премиум оттегі терапиясы (+ 12 000 теңге)</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="transfer" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 700;">VIP-трансфер қажет пе?</label>
+                        <select id="transfer" class="form-control">
+                            <option value="none">Қажет емес</option>
+                            <option value="airport">Әуежайдан/әуежайға (25 000 теңге)</option>
+                            <option value="city">Қарағанды қаласынан/қаласына (20 000 теңге)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="comments" style="font-family: 'Montserrat', sans-serif; color: black; font-weight: 700;">Арнайы тілектер</label>
+                        <textarea id="comments" class="form-control" rows="4" placeholder="Кез келген қосымша ақпаратты немесе арнайы тілектерді көрсетіңіз"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-button" style="font-family: 'Montserrat', Arial, sans-serif; font-weight: 2000;">Люкс нөмірді броньдау</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4 style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 1000;">Біз туралы</h4>
+                <p style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">"Оазис" санаторийі - Қарқаралы тауларындағы заманауи сауықтыру кешені, санаторлық-курорттық емдеу саласында 20 жылдан астам тәжірибесі бар.</p>
+            </div>
+            <div class="footer-section">
+                <h4 style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 1000;">Байланыс</h4>
+                <p style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Қазақстан, Қарағанды облысы, Қарқаралы қ.</p>
+                <p style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Телефон: +7 (771) 773-21-32</p>
+                <p style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Email: info@oasis-sanatorium.kz</p>
+            </div>
+            <div class="footer-section">
+                <h4 style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 1000;">Навигация</h4>
+                <a href="maink.html" style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Басты бет</a>
+                <a href="directionsk.html" style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Емдеу бағыттары</a>
+                <a href="findk.html" style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Бізді қалай табуға болады?</a>
+                <a href="pricek.html" style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Бағалар</a>
+            </div>
+            <div class="footer-section">
+                <h4 style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 1000;">Әлеуметтік желілер</h4>
+                <p style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Жаңалықтар мен акциялар туралы хабардар болу үшін бізді әлеуметтік желілерде қадағалаңыз</p>
+                <div class="social-links">
+                    <a href="#" class="social-link" >FB</a>
+                    <a href="#" class="social-link">IG</a>
+                    <a href="#" class="social-link">VK</a>
+                    <a href="#" class="social-link">TG</a>
+                </div>
+                <h4 style="margin-top: 20px; font-family: 'Montserrat', sans-serif; color: white; font-weight: 1000;">Сайт тілі</h4>
+                <div class="footer-lang-switcher">
+                    <a href="lux.html" class="footer-lang-link" style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Русский</a>
+                    <a href="luxk.html" class="footer-lang-link active" style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">Қазақша</a>
+                    <a href="luxe.html" class="footer-lang-link" style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">English</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p style="font-family: 'Montserrat', sans-serif; color: white; font-weight: 500;">© 2025 "Оазис" санаторийі. Барлық құқықтар қорғалған.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const nav = document.querySelector('.nav');
+            
+            menuToggle.addEventListener('click', function() {
+                nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+                if (nav.style.display === 'flex') {
+                    nav.style.flexDirection = 'column';
+                    nav.style.position = 'absolute';
+                    nav.style.top = '80px';
+                    nav.style.right = '20px';
+                    nav.style.backgroundColor = 'white';
+                    nav.style.padding = '20px';
+                    nav.style.borderRadius = '10px';
+                    nav.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.1)';
+                    nav.style.zIndex = '100';
+                }
+            });
+
+            // Language switcher functionality
+            const langLinks = document.querySelectorAll('.lang-link, .footer-lang-link');
+            
+            langLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links
+                    langLinks.forEach(l => l.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    // Here you can add code to actually change the language
+                    window.location.href = this.getAttribute('href');
+                });
+            });
+
+            // Form validation and date handling
+            const arrivalInput = document.getElementById('arrival');
+            const departureInput = document.getElementById('departure');
+            const form = document.querySelector('.booking-form');
+
+            // Set minimum arrival date to today
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            const formattedToday = `${yyyy}-${mm}-${dd}`;
+            arrivalInput.min = formattedToday;
+
+            // Update minimum departure date based on arrival date
+            arrivalInput.addEventListener('change', function() {
+                if (arrivalInput.value) {
+                    departureInput.min = arrivalInput.value;
+                    
+                    // If departure date is before new arrival date, reset it
+                    if (departureInput.value && departureInput.value < arrivalInput.value) {
+                        departureInput.value = '';
+                    }
+                }
+            });
+
+            // Form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Here you would normally send the data to the server
+                // For this example, we'll just show an alert
+                alert('Люкс нөмірді броньдау сәтті жіберілді! Біздің VIP-менеджер жақын арада растау үшін сізбен байланысады.');
+                
+                // Reset form
+                form.reset();
+            });
+        });
+    </script>
+</body>
+</html>
